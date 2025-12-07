@@ -1,4 +1,0 @@
-project_id = "knffyghjeglzaoseyrvu"
-
-[functions.virtual-tryon]
-verify_jwt = false

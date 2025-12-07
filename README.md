@@ -4,8 +4,9 @@ Aplikasi web modern untuk mencoba pakaian secara virtual menggunakan teknologi A
 
 ![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?logo=vite)
+![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css)
+![Bun](https://img.shields.io/badge/Bun-1.1-F9F1E1?logo=bun)
 
 ## 🌟 Fitur Utama
 
@@ -52,17 +53,10 @@ Aplikasi web modern untuk mencoba pakaian secara virtual menggunakan teknologi A
 - **AI Integration**: Google Gemini API
 - **Deployment**: Cloudflare Workers (Edge Computing)
 
-### Database & Storage
-- **Database**: Supabase (PostgreSQL)
-- **File Storage**: Supabase Storage
-- **Real-time**: Supabase Realtime
-
 ## 🚀 Instalasi & Setup
 
 ### Prerequisites
-- Node.js 18+ (gunakan [nvm](https://github.com/nvm-sh/nvm) untuk instalasi)
-- npm atau bun package manager
-- Akun Supabase (untuk database)
+- [Bun](https://bun.sh) runtime (direkomendasikan) atau Node.js 18+
 - Gemini API Key (untuk virtual try-on)
 
 ### Clone Repository
@@ -76,19 +70,13 @@ cd virtual-tryon
 
 ```bash
 # Install dependencies
-npm install
-# atau
 bun install
 
 # Setup environment variables
 # Buat file .env di root folder
 echo "VITE_API_URL=http://localhost:8787" > .env
-echo "VITE_SUPABASE_URL=your_supabase_url" >> .env
-echo "VITE_SUPABASE_ANON_KEY=your_supabase_anon_key" >> .env
 
 # Jalankan development server
-npm run dev
-# atau
 bun run dev
 ```
 
@@ -100,27 +88,17 @@ Frontend akan berjalan di `http://localhost:5173`
 cd backend
 
 # Install dependencies
-npm install
-# atau
 bun install
 
 # Setup Cloudflare Workers secrets
-npx wrangler secret put GEMINI_API_KEY
+bunx wrangler secret put GEMINI_API_KEY
 # Masukkan Gemini API key Anda saat diminta
 
 # Jalankan development server
-npm run dev
-# atau
 bun run dev
 ```
 
 Backend akan berjalan di `http://localhost:8787`
-
-### Setup Supabase
-
-1. Buat project baru di [Supabase](https://supabase.com)
-2. Jalankan migrations (jika ada)
-3. Copy URL dan anon key ke file `.env`
 
 ## 📁 Struktur Folder
 
@@ -137,14 +115,10 @@ Backend akan berjalan di `http://localhost:8787`
 │   ├── hooks/            # Custom React hooks
 │   ├── lib/              # Utility functions
 │   ├── types/            # TypeScript type definitions
-│   ├── data/             # Mock data & constants
-│   └── integrations/     # Third-party integrations
+│   └── data/             # Mock data & constants
 ├── backend/
 │   └── src/
 │       └── index.ts      # Cloudflare Workers API
-├── supabase/
-│   ├── functions/        # Edge Functions
-│   └── config.toml       # Supabase config
 └── public/               # Static assets
 ```
 
@@ -165,31 +139,31 @@ Backend akan berjalan di `http://localhost:8787`
 
 ```bash
 # Frontend
-npm run build
+bun run build
 
 # Backend
 cd backend
-npm run deploy
+bun run deploy
 ```
 
 ### Lint & Format
 
 ```bash
-npm run lint
+bun run lint
 ```
 
 ## 📦 Deploy
 
 ### Frontend (Vercel/Netlify)
 ```bash
-npm run build
+bun run build
 # Upload folder `dist` ke hosting pilihan
 ```
 
 ### Backend (Cloudflare Workers)
 ```bash
 cd backend
-npm run deploy
+bun run deploy
 ```
 
 ## 🔑 Environment Variables
@@ -197,8 +171,6 @@ npm run deploy
 ### Frontend (.env)
 ```env
 VITE_API_URL=your_backend_url
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 ### Backend (Cloudflare Workers Secrets)
@@ -227,11 +199,11 @@ Project ini dibuat untuk keperluan edukasi dan portfolio.
 
 ## 🙏 Acknowledgments
 
+- [Bun](https://bun.sh/) untuk JavaScript runtime yang super cepat
 - [shadcn/ui](https://ui.shadcn.com/) untuk komponen UI yang indah
 - [Lucide](https://lucide.dev/) untuk icon set
 - [Google Gemini](https://deepmind.google/technologies/gemini/) untuk AI virtual try-on
 - [Cloudflare Workers](https://workers.cloudflare.com/) untuk serverless backend
-- [Supabase](https://supabase.com/) untuk database dan storage
 
 ---
 
