@@ -56,7 +56,8 @@ Aplikasi web modern untuk mencoba pakaian secara virtual menggunakan teknologi A
 ## 🚀 Instalasi & Setup
 
 ### Prerequisites
-- [Bun](https://bun.sh) runtime (direkomendasikan) atau Node.js 18+
+- [Bun](https://bun.sh) runtime (untuk local development, **opsional**)
+- Node.js 18+ (untuk production build)
 - Gemini API Key (untuk virtual try-on)
 
 ### Clone Repository
@@ -69,8 +70,9 @@ cd virtual-tryon
 ### Setup Frontend
 
 ```bash
-# Install dependencies
+# Install dependencies (gunakan bun untuk local dev)
 bun install
+# atau npm install
 
 # Setup environment variables
 # Buat file .env di root folder
@@ -78,6 +80,7 @@ echo "VITE_API_URL=http://localhost:8787" > .env
 
 # Jalankan development server
 bun run dev
+# atau npm run dev
 ```
 
 Frontend akan berjalan di `http://localhost:5173`
@@ -88,14 +91,17 @@ Frontend akan berjalan di `http://localhost:5173`
 cd backend
 
 # Install dependencies
-bun install
+npm install
+# atau bun install
 
 # Setup Cloudflare Workers secrets
-bunx wrangler secret put GEMINI_API_KEY
+npx wrangler secret put GEMINI_API_KEY
+# atau: bunx wrangler secret put GEMINI_API_KEY
 # Masukkan Gemini API key Anda saat diminta
 
 # Jalankan development server
-bun run dev
+npm run dev
+# atau bun run dev
 ```
 
 Backend akan berjalan di `http://localhost:8787`
@@ -139,31 +145,35 @@ Backend akan berjalan di `http://localhost:8787`
 
 ```bash
 # Frontend
-bun run build
+npm run build
+# atau bun run build
 
 # Backend
 cd backend
-bun run deploy
+npm run deploy
+# atau bun run deploy
 ```
 
 ### Lint & Format
 
 ```bash
-bun run lint
+npm run lint
+# atau bun run lint
 ```
 
 ## 📦 Deploy
 
-### Frontend (Vercel/Netlify)
+### Frontend (Vercel/Netlify/Cloudflare Pages)
 ```bash
-bun run build
+npm run build
 # Upload folder `dist` ke hosting pilihan
 ```
 
 ### Backend (Cloudflare Workers)
 ```bash
 cd backend
-bun run deploy
+npm run deploy
+# atau bun run deploy
 ```
 
 ## 🔑 Environment Variables

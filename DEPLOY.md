@@ -55,11 +55,14 @@ Isi konfigurasi berikut:
 | **Project name** | `virtual-tryon` (atau nama custom) |
 | **Production branch** | `main` |
 | **Framework preset** | `Vite` |
-| **Build command** | `bun run build` |
+| **Build command** | `npm run build` |
 | **Build output directory** | `dist` |
 | **Root directory** | `/` (default) |
 
-> ⚠️ **PENTING**: Jangan tambahkan deploy command di Pages! Pages otomatis deploy hasil build dari folder `dist`.
+> ⚠️ **PENTING**: 
+> - Gunakan `npm run build` bukan `bun run build` untuk kompatibilitas
+> - Jangan tambahkan deploy command di Pages!
+> - Pages otomatis deploy hasil build dari folder `dist`
 
 ### Step 5: Set Environment Variables
 
@@ -124,7 +127,7 @@ Set konfigurasi berikut:
 | Setting | Value |
 |---------|-------|
 | **Production branch** | `main` |
-| **Build command** | `cd backend && bun install && bun run build` |
+| **Build command** | `cd backend && npm install && npm run build` |
 | **Build watch paths** | `backend/**` |
 | **Entrypoint** | `backend/src/index.ts` |
 
@@ -245,6 +248,8 @@ git push
 
 GitHub Actions akan otomatis deploy! 🎉
 
+> 💡 **Note**: GitHub Actions akan pakai Bun karena sudah kita setup di workflow. Untuk local development tetap bisa pakai `bun run dev`.
+
 ---
 
 ## 🔄 Part 3: Update Frontend Environment Variable
@@ -342,19 +347,23 @@ https://virtual-tryon-api.YOUR_SUBDOMAIN.workers.dev
 
 ### Issue 1: Build Failed - "Command not found: bun"
 
+**Solusi:**
+Gunakan npm sebagai gantinya:
+
 **Pages:**
-```bash
-# Solusi 1: Tambahkan packageManager di root package.json
+- Build command: `npm run build`
+- Atau `npm install && npm run build`
+
+**Workers (Dashboard method):**
+- Build command: `cd backend && npm install && npm run build`
+
+**Jika tetap ingin pakai Bun, tambahkan di root `package.json`:**
+```json
 {
   "packageManager": "bun@1.1.0"
 }
-
-# Solusi 2: Atau gunakan npm di build command
-npm install && npm run build
 ```
-
-**Workers (Dashboard method):**
-- Di Settings → Build, pastikan command: `cd backend && bun install`
+Tapi lebih stabil pakai npm.
 
 ### Issue 2: CORS Error
 
