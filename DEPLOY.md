@@ -59,6 +59,8 @@ Isi konfigurasi berikut:
 | **Build output directory** | `dist` |
 | **Root directory** | `/` (default) |
 
+> ⚠️ **PENTING**: Jangan tambahkan deploy command di Pages! Pages otomatis deploy hasil build dari folder `dist`.
+
 ### Step 5: Set Environment Variables
 
 Klik **Add variable** dan tambahkan:
@@ -74,6 +76,12 @@ Klik **Add variable** dan tambahkan:
 1. Klik **Save and Deploy**
 2. Tunggu proses build (±2-3 menit)
 3. Setelah selesai, Anda akan mendapat URL seperti: `https://virtual-tryon.pages.dev`
+
+> 🚨 **COMMON ERROR**: Jika ada error "Missing entry-point to Worker script":
+> - Buka **Settings** → **Build & deployments**
+> - Pastikan **Deploy command** KOSONG (tidak ada isi)
+> - Hanya isi **Build command** dan **Build output directory**
+> - Pages otomatis deploy dari folder `dist`, tidak perlu wrangler!
 
 ### Step 7: Custom Domain (Opsional)
 
@@ -308,6 +316,29 @@ https://virtual-tryon-api.YOUR_SUBDOMAIN.workers.dev
 ---
 
 ## 🔧 Troubleshooting
+
+### Issue 0: Deploy Error - "Missing entry-point to Worker script"
+
+**Ini error yang muncul di Pages build log:**
+```
+✘ [ERROR] Missing entry-point to Worker script or to assets directory
+```
+
+**Penyebab:**
+- Ada command `bunx wrangler deploy` yang seharusnya tidak ada di Pages
+- Pages tidak perlu wrangler untuk deploy frontend
+
+**Solusi:**
+1. Pergi ke Pages → virtual-tryon → **Settings** → **Build & deployments**
+2. Di **Build configurations**, pastikan **TIDAK ADA** pada:
+   - Deploy command: (kosongkan atau hapus)
+3. Yang diperlukan hanya:
+   - Build command: `bun run build`
+   - Build output directory: `dist`
+4. Klik **Save**
+5. **Retry deployment** dari tab Deployments
+
+> 💡 Pages otomatis mengambil file dari folder `dist` setelah build. Tidak perlu deploy command tambahan!
 
 ### Issue 1: Build Failed - "Command not found: bun"
 
