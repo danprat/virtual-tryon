@@ -1,33 +1,34 @@
-import { Bell, Menu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Bell, Search } from 'lucide-react';
 
 interface HeaderProps {
   userName?: string;
-  location?: string;
 }
 
-export function Header({ userName = "Fashionista", location = "Jakarta, INA" }: HeaderProps) {
+export function Header({ userName = "Guest" }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 glass safe-top">
-      <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-        <div className="flex items-center gap-3">
-          <Button variant="icon" size="icon" className="rounded-xl">
-            <Menu className="w-5 h-5" />
-          </Button>
+    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border/50 safe-top">
+      <div className="flex items-center justify-between px-4 py-3.5 max-w-lg mx-auto">
+        {/* Logo / Brand */}
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center">
+            <span className="text-background font-display font-bold text-sm">V</span>
+          </div>
           <div>
-            <p className="text-xs text-muted-foreground">Hello, {userName}</p>
-            <p className="text-sm font-semibold flex items-center gap-1">
-              📍 {location}
-            </p>
+            <h1 className="font-display text-lg font-semibold tracking-tight leading-none">Vogue</h1>
+            <p className="text-[10px] text-muted-foreground font-medium tracking-widest uppercase">Try-On</p>
           </div>
         </div>
         
-        <Button variant="icon" size="icon" className="rounded-xl relative">
-          <Bell className="w-5 h-5" />
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-primary rounded-full text-[10px] text-primary-foreground flex items-center justify-center font-bold">
-            3
-          </span>
-        </Button>
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          <button className="w-10 h-10 rounded-full flex items-center justify-center text-foreground hover:bg-muted transition-colors">
+            <Search className="w-5 h-5" />
+          </button>
+          <button className="relative w-10 h-10 rounded-full flex items-center justify-center text-foreground hover:bg-muted transition-colors">
+            <Bell className="w-5 h-5" />
+            <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-primary rounded-full ring-2 ring-background" />
+          </button>
+        </div>
       </div>
     </header>
   );

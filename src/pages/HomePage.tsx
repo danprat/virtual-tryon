@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TrendingUp } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { HeroBanner } from '@/components/home/HeroBanner';
 import { CategoryTabs } from '@/components/home/CategoryTabs';
@@ -35,22 +36,41 @@ export default function HomePage() {
 
   const handleSaveLook = (lookData: { userPhoto: string; product: Product }) => {
     addLook(lookData.userPhoto, lookData.product);
-    // Don't close TryOn - let user see the result and close manually
   };
 
   return (
-    <div className="pb-24">
+    <div className="min-h-screen bg-background pb-24">
       <Header />
-      <div className="mt-2">
+      
+      {/* Hero Section */}
+      <section className="pt-3 pb-2">
         <HeroBanner onTryOnClick={() => navigate('/tryon')} />
-      </div>
-      <CategoryTabs 
-        activeCategory={activeCategory} 
-        onCategoryChange={setActiveCategory} 
-      />
-      <div className="mb-4 px-4">
-        <h2 className="text-lg font-bold">✨ Trending Now</h2>
-      </div>
+      </section>
+      
+      {/* Categories */}
+      <section>
+        <CategoryTabs 
+          activeCategory={activeCategory} 
+          onCategoryChange={setActiveCategory} 
+        />
+      </section>
+      
+      {/* Products Section */}
+      <section className="px-4 mb-5">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <h2 className="font-display text-lg font-semibold">Trending Now</h2>
+          </div>
+          <button className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors elegant-underline">
+            View All
+          </button>
+        </div>
+        <p className="text-sm text-muted-foreground font-body">
+          {filteredProducts.length} items curated for you
+        </p>
+      </section>
+      
       <ProductGrid 
         products={filteredProducts}
         onTryOn={handleTryOn}

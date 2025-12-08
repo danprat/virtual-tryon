@@ -10,20 +10,25 @@ interface ProductGridProps {
 export function ProductGrid({ products, onTryOn, onProductClick }: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-        <div className="text-6xl mb-4">🔍</div>
-        <h3 className="text-lg font-semibold text-foreground mb-2">Tidak ada produk</h3>
-        <p className="text-sm text-muted-foreground">Coba pilih kategori lain ya!</p>
+      <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+        <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mb-5">
+          <span className="text-4xl">🔍</span>
+        </div>
+        <h3 className="font-display text-xl font-semibold text-foreground mb-2">No Products Found</h3>
+        <p className="text-sm text-muted-foreground font-body max-w-[200px]">
+          Try selecting a different category to discover more styles
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 px-4 pb-24">
+    <div className="grid grid-cols-2 gap-4 px-4 pb-28">
       {products.map((product, index) => (
         <div 
           key={product.id}
-          style={{ animationDelay: `${index * 0.1}s` }}
+          className="opacity-0 animate-reveal"
+          style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'forwards' }}
         >
           <ProductCard 
             product={product} 

@@ -36,19 +36,23 @@ app.post('/api/virtual-tryon', async (c) => {
     const userImageData = userPhotoBase64.replace(/^data:image\/[a-z]+;base64,/, '');
     const productImageData = productImage.replace(/^data:image\/[a-z]+;base64,/, '');
 
-    // Create the prompt for virtual try-on
-    const editPrompt = `Edit this photo: change ONLY the clothing to show the person wearing a ${productCategory} (${productName}). 
+    // Create the prompt for virtual try-on - more natural approach
+    const editPrompt = `Virtual try-on: Show this person wearing the ${productName} (${productCategory}) from the second image.
 
-CRITICAL - KEEP UNCHANGED:
-- The person's face must remain EXACTLY the same - same eyes, nose, mouth, skin tone, expression
-- Same hair style and color
-- Same body pose and position
-- Same background
-- Same lighting on the face
+GOAL: Create a realistic photo of the person trying on this garment, like they're in a fitting room mirror.
 
-ONLY CHANGE: Replace the current clothing with the ${productCategory} from the reference image. Make the clothing fit naturally on the person's body.
+PRESERVE:
+- Person's face, skin tone, and features
+- Body proportions and pose
+- Background and lighting atmosphere
 
-This is a photo editing task - the output should look like the same person took a new photo wearing different clothes.`;
+CLOTHING STYLING:
+- Use the exact garment design, color, pattern and style from the reference product image
+- Make it drape and fit naturally on their body shape
+- Show realistic fabric texture and how it falls
+- Adjust the garment size to fit their body proportionally
+
+OUTPUT: A natural-looking photo as if this person is actually wearing this ${productCategory}. The clothing should look real and wearable, not digitally pasted.`;
 
     let response;
     let usingGemini3 = false;
@@ -97,19 +101,19 @@ This is a photo editing task - the output should look like the same person took 
             contents: [{
               parts: [
                 {
-                  text: `Edit this photo to show the SAME PERSON wearing different clothing.
+                  text: `Virtual fitting room: Generate a photo of this person wearing the "${productName}" garment.
 
-IMAGE 1 (PERSON TO EDIT): This is the person. Their face, hair, body, and background must stay EXACTLY the same.
+IMAGE 1: The customer who wants to try on clothes
+IMAGE 2: The ${productCategory} product they want to wear
 
-IMAGE 2 (CLOTHING REFERENCE): This is a ${productCategory} called "${productName}".
+Create a realistic try-on result showing:
+- The same person from Image 1
+- Wearing the ${productCategory} from Image 2
+- Natural fabric draping that fits their body
+- Same pose, background, and lighting
+- The clothing should look like they're actually wearing it, not photoshopped
 
-YOUR TASK: 
-1. Take the person from Image 1
-2. Replace ONLY their clothing with the ${productCategory} from Image 2
-3. Keep the EXACT same face - do not change or regenerate any facial features
-4. The output must look like the same person wearing new clothes
-
-IMPORTANT: This is photo editing, not photo generation. The person's identity must be preserved 100%.`
+Think of this like a smart fitting room mirror - show them how this ${productCategory} would look on them in real life.`
                 },
                 { inlineData: { mimeType: 'image/jpeg', data: userImageData } },
                 { inlineData: { mimeType: 'image/jpeg', data: productImageData } },
